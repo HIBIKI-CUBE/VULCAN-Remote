@@ -20,8 +20,9 @@ struct ScanDevice: View {
                     Text("\(item.name)")
                 }
             }
-            if #available(iOS 15.0, *) {
-                VStack(alignment: .leading){
+            VStack(alignment: .leading){
+                
+                if #available(iOS 15.0, *) {
                     Text("Target Service UUID:")
                     TextField("Service UUID", text: $targetServiceUUID)
                         .onSubmit {
@@ -32,9 +33,17 @@ struct ScanDevice: View {
                         .onSubmit {
                             bleManager.targetCharacteristicUUID = CBUUID(string: targetCharacteristicUUID)
                         }
+                }else{
+                    Text("Target Service UUID:")
+                    Text(bleManager.targetServiceUUID.uuidString)
+                    Text("Target Characteristic UUID:")
+                    Text(bleManager.targetCharacteristicUUID.uuidString)
+                    Divider()
+                    Text("これらの値を編集するにはデバイスをiOS 15以降にアップデートしてください。")
                 }
-                .padding()
             }
+            .padding()
+            
         }
         .onAppear{
             targetServiceUUID = bleManager.targetServiceUUID.uuidString

@@ -11,8 +11,6 @@ import SwiftUI
 struct VULCAN_Remote: App {
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-//                .environmentObject(CoreBluetoothViewModel())
             HomeView()
                 .environmentObject(CoreBluetoothViewModel())
         }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,9 +25,10 @@
 		715D910325C9229000F19093 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D910225C9229000F19093 /* ListView.swift */; };
 		715D910725C9229A00F19093 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D910625C9229A00F19093 /* DetailView.swift */; };
 		71A6E9A226D4115600B400BC /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A6E9A126D4115600B400BC /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift */; };
-		B64CCF96283B5568008E1008 /* BluetoothTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64CCF95283B5568008E1008 /* BluetoothTest.swift */; };
 		B69E7A3128405C140035189F /* ScanDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69E7A3028405C140035189F /* ScanDevice.swift */; };
 		B6CAF5C5283B1E02004C05A7 /* HomeVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CAF5C4283B1E02004C05A7 /* HomeVIew.swift */; };
+		B6FED630284507CB0041805C /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FED62F284507CB0041805C /* Joystick.swift */; };
+		B6FED633284507F80041805C /* SwiftUIJoystick in Frameworks */ = {isa = PBXBuildFile; productRef = B6FED632284507F80041805C /* SwiftUIJoystick */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,9 +52,9 @@
 		715D910225C9229000F19093 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		715D910625C9229A00F19093 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		71A6E9A126D4115600B400BC /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreBluetoothViewModelExtension+SwiftUIView.swift.swift"; sourceTree = "<group>"; };
-		B64CCF95283B5568008E1008 /* BluetoothTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTest.swift; sourceTree = "<group>"; };
 		B69E7A3028405C140035189F /* ScanDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanDevice.swift; sourceTree = "<group>"; };
 		B6CAF5C4283B1E02004C05A7 /* HomeVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVIew.swift; sourceTree = "<group>"; };
+		B6FED62F284507CB0041805C /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6FED633284507F80041805C /* SwiftUIJoystick in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +172,7 @@
 				715D90E525C9086500F19093 /* CameraView.swift */,
 				715D910225C9229000F19093 /* ListView.swift */,
 				715D910625C9229A00F19093 /* DetailView.swift */,
-				B64CCF95283B5568008E1008 /* BluetoothTest.swift */,
+				B6FED62F284507CB0041805C /* Joystick.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -216,6 +218,9 @@
 			dependencies = (
 			);
 			name = "VULCAN-Remote-Project";
+			packageProductDependencies = (
+				B6FED632284507F80041805C /* SwiftUIJoystick */,
+			);
 			productName = "SwiftUI-BLE-Project";
 			productReference = 715D90E025C9086500F19093 /* VULCAN-Remote-Project.app */;
 			productType = "com.apple.product-type.application";
@@ -243,6 +248,9 @@
 				Base,
 			);
 			mainGroup = 715D90D725C9086500F19093;
+			packageReferences = (
+				B6FED631284507F80041805C /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */,
+			);
 			productRefGroup = 715D90E125C9086500F19093 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -279,6 +287,7 @@
 				715D910325C9229000F19093 /* ListView.swift in Sources */,
 				7134F38825C93B7D00DAD350 /* CBPeripheralMock.swift in Sources */,
 				71A6E9A226D4115600B400BC /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift in Sources */,
+				B6FED630284507CB0041805C /* Joystick.swift in Sources */,
 				7134F39325C93FE100DAD350 /* CoreBluetoothViewModelExtension+Delegate.swift in Sources */,
 				715D90E425C9086500F19093 /* VULCAN_Remote.swift in Sources */,
 				7134F39925C940DC00DAD350 /* ServiceCharacteristicsMock.swift in Sources */,
@@ -287,7 +296,6 @@
 				7134F38A25C93B7D00DAD350 /* Characteristic.swift in Sources */,
 				B6CAF5C5283B1E02004C05A7 /* HomeVIew.swift in Sources */,
 				715D90F825C90B6C00F19093 /* CoreBluetoothViewModel.swift in Sources */,
-				B64CCF96283B5568008E1008 /* BluetoothTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +429,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"VULCAN-Remote-Project/Preview Content\"";
 				DEVELOPMENT_TEAM = NPSM864R9U;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "VULCAN-Remote-Project/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -446,6 +455,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"VULCAN-Remote-Project/Preview Content\"";
 				DEVELOPMENT_TEAM = NPSM864R9U;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "VULCAN-Remote-Project/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -482,6 +492,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B6FED631284507F80041805C /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/michael94ellis/SwiftUIJoystick";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B6FED632284507F80041805C /* SwiftUIJoystick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6FED631284507F80041805C /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */;
+			productName = SwiftUIJoystick;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 715D90D825C9086500F19093 /* Project object */;
 }
