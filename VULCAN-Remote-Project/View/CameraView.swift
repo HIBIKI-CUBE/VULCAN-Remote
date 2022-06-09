@@ -37,8 +37,8 @@ class BaseCameraView: UIView {
     }()
 }
 
-struct CameraView_Previews: PreviewProvider {
+struct CameraBackground_Previews: PreviewProvider {
     static var previews: some View {
-        CameraView()
+        CameraBackground()
     }
 }
