@@ -15,7 +15,7 @@ struct ScanDevice: View {
     
     var body: some View {
         VStack{
-            if !bleManager.foundPeripherals.isEmpty{
+            if(!bleManager.foundPeripherals.isEmpty){
                 List(bleManager.foundPeripherals){ item in
                     Text("\(item.name)")
                 }
@@ -55,5 +55,6 @@ struct ScanDevice: View {
 struct ScanDevice_Previews: PreviewProvider {
     static var previews: some View {
         ScanDevice()
+        .environmentObject(CoreBluetoothViewModel())
     }
 }

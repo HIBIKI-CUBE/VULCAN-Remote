@@ -1,5 +1,5 @@
 //
-//  home.swift
+//  HomeView.swift
 //  SwiftUI-BLE-Project
 //
 //  Created by HIBIKI CUBE on 2022/05/23.
@@ -7,21 +7,14 @@
 
 import SwiftUI
 import SwiftUIJoystick
+import BudouX
 import CoreBluetooth
+import simd
 
-struct ActivityIndicator: UIViewRepresentable {
-  func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
-    return UIActivityIndicatorView(style: .large)
-  }
-  func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
-    uiView.startAnimating()
-  }
-}
-
-func bleFinish(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-  let data: Data = characteristic.value!
-  let hexStr = data.map { String(format: "%02hhx ", $0) }.joined()
-  print(hexStr)
+enum driveMode: Int {
+  case remote
+  case ride
+  case direct
 }
 
 struct HomeView: View {
@@ -29,29 +22,33 @@ struct HomeView: View {
   @Environment(\.scenePhase) private var scenePhase
   
   @EnvironmentObject var bleManager: CoreBluetoothViewModel
-  @State var bl = 15.0
-  @State var showScanDevice = false
-  @State var ledState = false
-  @State var suggestReset = false
-  @State var mode = 0
   @StateObject var joystickMonitor = JoystickMonitor()
-  @State var rightPower = 0.0
-  @State var leftPower = 0.0
+  @State var blur = 30.0
+  @State var video = false
+  @State var suggestReset = false
+  @State var showScanDevice = false
+  @State var bleWaiting = false
+  @State var mode = driveMode.remote
   @State var active = false
+  @State var fast = false
   @State var distance = 0.0
   @State var angle = 0.0
-  @State var bleWaiting = false
+  @State var rightPower = 0.0
+  @State var leftPower = 0.0
+  @State var errorNoticed = false
   let screen = UIScreen.main.bounds
+  let vibrate = UINotificationFeedbackGenerator()
   
   var body: some View {
     
     let backgroundBlurColorTint = (colorScheme == .dark ? 0.25 : 1.0)
-    ZStack(alignment: .top){
+    ZStack{
       CameraView()
-        .blur(radius: bl)
+        .blur(radius: blur)
         .scaledToFill()
         .frame(width: screen.width)
         .edgesIgnoringSafeArea(.all)
+        .animation(.default, value: blur)
       Rectangle()
         .fill(
           Color.init(
@@ -60,123 +57,215 @@ struct HomeView: View {
             blue: backgroundBlurColorTint
           )
         )
-        .opacity(0.5)
+        .opacity(0.5 * (min(blur, 24.0) / 15.0))
         .blendMode(.normal)
         .edgesIgnoringSafeArea(.all)
-      GeometryReader { bodyView in
+        .animation(.default, value: blur)
+      VStack{
         VStack{
-          VStack{
-            if(!bleManager.isConnected){
-              Image("App-logo")
-                .resizable()
-                .frame(width: screen.size.width / 6, height: screen.size.width / 6)
-                .cornerRadius(screen.size.width / 6 * 0.2237)
-              HStack{
-                ActivityIndicator()
-                VStack{
-                  Text("VULCANの電源を入れてください")
-                    .font(.title2)
-                  if(suggestReset){
-                    Text("VULCANをリセットしてみてください")
-                      .font(.title3)
-                  }
+          Spacer()
+          if(!bleManager.isConnected){
+            Image("App-logo")
+              .resizable()
+              .aspectRatio(1, contentMode: .fit)
+              .frame(width: screen.width / 6)
+              .cornerRadius(screen.width / 6 * 0.2237)
+            HStack{
+              ProgressView()
+                .progressViewStyle(.circular)
+                .scaleEffect(1.5)
+                .padding()
+              VStack(alignment:.leading){
+                Text("VULCANの電源を入れてください".budouxed())
+                  .font(.title2)
+                if(suggestReset){
+                  Text("接続できない場合はVULCANのリセットを試してください".budouxed())
+                    .font(.title3)
+                    .padding(.top, 1)
                 }
-              }.onAppear{
-                suggestReset = false
               }
-            }else{
-              Spacer()
-              switch mode{
-              case 0:
-                Joystick(monitor: joystickMonitor, width: bodyView.size.width * 0.8, shape: .circle)
-                  .onChange(of: joystickMonitor.xyPoint){ value in
-                    if(joystickMonitor.xyPoint == .zero){
-                      let data = """
-                        {"distance":\(Int(0)),"angle":\(Int(0)),"active":false}
-                        """.data(using: .utf8)!
-                      bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
-                      
-                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
-                        
-                      bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
-                      }
-                      print("stop")
-                    }
-                    if(!bleWaiting){
-                      distance = sqrt(pow(joystickMonitor.xyPoint.x, 2) + pow(joystickMonitor.xyPoint.y, 2)) / (bodyView.size.width * 0.8) / 3
-                      angle = joystickMonitor.xyPoint == .zero ? 0 : atan2(joystickMonitor.xyPoint.x, -joystickMonitor.xyPoint.y) * 180.0 / CGFloat.pi
-                      let data = """
-                      {"distance":\(Int(distance * 1000)),"angle":\(Int(angle)),"active":\(active ? "true" : "false")}
-                      """.data(using: .utf8)!
-                      bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
-                      bleWaiting = true
-                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
-                        bleWaiting = false
-                      }
-                    }
-                  }
-                Spacer()
-                Text("""
-                  dis: \(distance), angle: \(angle), send: {"distance":\(Int(distance * 1000)),"angle":\(Int(angle))}
-                  """)
-              case 1:
-                Text("ライドモード")
-                  .font(.largeTitle)
-                Spacer()
-              case 2:
-                HStack{
-                  VStack{
-                    Slider(value: $rightPower, in: -1 ... 1)
-                      .padding()
-                      .rotationEffect(Angle(degrees: 90))
-                    Text("\(rightPower)")
-                  }
-                  VStack{
-                    Slider(value: $leftPower, in: -1 ... 1)
-                      .padding()
-                      .rotationEffect(Angle(degrees: 90))
-                    Text("\(leftPower)")
-                  }
-                }
-                Spacer()
-              default:
-                Text("不正なモードです")
-                Spacer()
-              }
-              Toggle("Active", isOn: $active)
-                .scaledToFit()
-                .onChange(of: active){ value in
-                  let data = """
-                    {"active":\(active ? "true" : "false")}
-                    """.data(using: .utf8)!
-                  bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
-                  print(data)
-                  bleWaiting = true
-                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
-                    bleWaiting = false
-                  }
-                }
-              Picker(selection: $mode, label: Text("モード選択"), content: {
-                Text("リモートモード").tag(0)
-                Text("ライドモード").tag(1)
-                Text("ダイレクトモード").tag(2)
-              })
-              .padding()
-              .pickerStyle(SegmentedPickerStyle())
+            }.onAppear{
+              suggestReset = false
+            }.onDisappear{
+              blur = 15.0
             }
+            Spacer()
+          }else{
+            switch mode{
+            case .remote:
+              Joystick(monitor: joystickMonitor, width: screen.width * 0.9, shape: .circle, active: $active)
+                .onChange(of: joystickMonitor.xyPoint){ _ in
+                  if(!active && !errorNoticed){
+                    vibrate.notificationOccurred(.error)
+                    errorNoticed = true
+                    return
+                  }
+                  if(!bleWaiting && active){
+                    distance = sqrt(pow(joystickMonitor.xyPoint.x, 2) + pow(joystickMonitor.xyPoint.y, 2)) / (screen.width * 0.9) / (fast ? 1 : 3)
+                    angle = joystickMonitor.xyPoint == .zero ? 0 : atan2(joystickMonitor.xyPoint.x, -joystickMonitor.xyPoint.y) * 180.0 / CGFloat.pi
+                    let data = """
+                      {"distance":\(Int(distance * 1000)),"angle":\(Int(angle)),"active":true}
+                      """.data(using: .utf8)!
+                    bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
+                    bleWaiting = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
+                      bleWaiting = false
+                    }
+                  }
+                  if(joystickMonitor.xyPoint == .zero){
+                    let data = """
+                        {"distance":\(Int(0)),"angle":\(Int(0))}
+                        """.data(using: .utf8)!
+                    bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
+                      bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
+                    }
+                    errorNoticed = false
+                    print("stop")
+                  }
+                }
+            case .ride:
+              Text("ライドモード".budouxed())
+                .font(.largeTitle)
+              
+              Button("キャリブレーションを行う".budouxed(), action: {
+                let data = """
+                      {"action":"calibrate"}
+                      """.data(using: .utf8)!
+                bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
+                bleWaiting = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
+                  bleWaiting = false
+                }
+              })
+              .font(.title2)
+              .padding()
+              .foregroundColor(.primary)
+              .buttonStyle(.bordered)
+            case .direct:
+              HStack{
+                Spacer()
+                VStack{
+                  Slider(value: $rightPower, in: -1 ... 1)
+                    .tint(.blue)
+                    .rotationEffect(.degrees(-90))
+                    .frame(width: screen.width * 0.9)
+                    .frame(width: 20, height: screen.width * 0.9)
+                    .padding()
+                  Text("\(Int(rightPower * 100))%")
+                }
+                Spacer()
+                VStack{
+                  Slider(value: $leftPower, in: -1 ... 1)
+                    .tint(.blue)
+                    .rotationEffect(.degrees(-90))
+                    .frame(width: screen.width * 0.9)
+                    .frame(width: 20, height: screen.width * 0.9)
+                    .padding()
+                  Text("\(Int(leftPower * 100))%")
+                }
+                Spacer()
+              }
+            }
+            Spacer()
+            
+              Image(systemName: "power.circle.fill")
+              .scaleEffect(3, anchor: .center)
+              .symbolRenderingMode(.palette)
+              .foregroundStyle(.white, active ? .blue : .gray)
+                .onTapGesture {
+                  active.toggle()
+                    let data = """
+                          {"active":\(active ? "true" : "false")}
+                          """.data(using: .utf8)!
+                    bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
+                    print(data)
+                    bleWaiting = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
+                      bleWaiting = false
+                    }
+                }
+            HStack{
+              if(mode == .remote){
+              Spacer()
+              HStack{
+                Image(systemName: "tortoise.fill")
+                  .symbolRenderingMode(!fast ? .palette : .monochrome)
+                  .foregroundStyle(!fast ? .yellow : .primary, .green)
+                Toggle("", isOn: $fast)
+                  .labelsHidden()
+                  .padding()
+                Image(systemName: "hare.fill")
+                  .symbolRenderingMode(.palette)
+                  .foregroundStyle(fast ? Color(red: 1, green: 0.7098, blue: 0.9412) : .primary)
+              }
+              Spacer()
+              Divider()
+                .blendMode(.difference)
+                .frame(height: 50)
+            }
+              Spacer()
+              HStack{
+                Image(systemName: "video.slash.fill")
+                  .symbolRenderingMode(.monochrome)
+                Toggle("", isOn: $video)
+                  .labelsHidden()
+                  .padding()
+                  .onChange(of: video){ _ in
+                    blur = video ? 0.0 : 15.0
+                  }
+                Image(systemName: "video.fill")
+                  .symbolRenderingMode(.monochrome)
+              }
+              Spacer()
+            }
+            Spacer()
+            Picker(selection: $mode, label: Text("モード選択"), content: {
+              Text("リモートモード").tag(driveMode.remote)
+              Text("ライドモード").tag(driveMode.ride)
+              Text("ダイレクトモード").tag(driveMode.direct)
+            })
+            .onChange(of: mode){ _ in
+              active = false
+              let data = """
+                    {"mode":\(mode.rawValue),"active":"false"}
+                    """.data(using: .utf8)!
+              bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
+              print(mode.rawValue)
+              DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
+                bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
+              }
+            }
+            .padding()
+            .pickerStyle(SegmentedPickerStyle())
           }
-          .frame(height: bodyView.size.height * 3/4)
-          Button("デバイス設定", action: {
-            showScanDevice = true
-          })
-          .frame(width: screen.width)
-          .foregroundColor(.primary)
-          .buttonStyle(.bordered)
         }
+        Button("接続設定", action: {
+          showScanDevice = true
+        })
+        .padding()
+        .foregroundColor(.primary)
+        .buttonStyle(.bordered)
       }
     }
     .sheet(isPresented: $showScanDevice) {
-      ScanDevice()
+      NavigationView{
+        ScanDevice()
+          .toolbar{
+            ToolbarItem(placement: .principal){
+              Text("接続設定")
+                .fontWeight(.semibold)
+            }
+            ToolbarItem(placement: .primaryAction){
+              Button(action: {showScanDevice = false}){
+                Text("完了")
+                  .foregroundColor(.blue)
+                  .fontWeight(.semibold)
+              }
+            }
+          }
+      }
     }
     .onChange(of: scenePhase) { phase in
       if(phase == .background || phase == .inactive){
@@ -193,8 +282,11 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
-    HomeView()
-      .previewDevice("iPhone 11 Pro Max")
-      .preferredColorScheme(.dark)
+    Group{
+      HomeView()
+        .environmentObject(CoreBluetoothViewModel())
+        .previewDevice("iPhone 11 Pro Max")
+        .preferredColorScheme(.dark)
+    }
   }
 }

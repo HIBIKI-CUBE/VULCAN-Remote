@@ -25,6 +25,7 @@
 		715D910325C9229000F19093 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D910225C9229000F19093 /* ListView.swift */; };
 		715D910725C9229A00F19093 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D910625C9229A00F19093 /* DetailView.swift */; };
 		71A6E9A226D4115600B400BC /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A6E9A126D4115600B400BC /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift */; };
+		B62AEBA7284CA31F00A20FB9 /* BudouX in Frameworks */ = {isa = PBXBuildFile; productRef = B62AEBA6284CA31F00A20FB9 /* BudouX */; };
 		B69E7A3128405C140035189F /* ScanDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69E7A3028405C140035189F /* ScanDevice.swift */; };
 		B6CAF5C5283B1E02004C05A7 /* HomeVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CAF5C4283B1E02004C05A7 /* HomeVIew.swift */; };
 		B6FED630284507CB0041805C /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FED62F284507CB0041805C /* Joystick.swift */; };
@@ -63,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6FED633284507F80041805C /* SwiftUIJoystick in Frameworks */,
+				B62AEBA7284CA31F00A20FB9 /* BudouX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +222,7 @@
 			name = "VULCAN-Remote-Project";
 			packageProductDependencies = (
 				B6FED632284507F80041805C /* SwiftUIJoystick */,
+				B62AEBA6284CA31F00A20FB9 /* BudouX */,
 			);
 			productName = "SwiftUI-BLE-Project";
 			productReference = 715D90E025C9086500F19093 /* VULCAN-Remote-Project.app */;
@@ -250,6 +253,7 @@
 			mainGroup = 715D90D725C9086500F19093;
 			packageReferences = (
 				B6FED631284507F80041805C /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */,
+				B62AEBA5284CA31F00A20FB9 /* XCRemoteSwiftPackageReference "BudouX" */,
 			);
 			productRefGroup = 715D90E125C9086500F19093 /* Products */;
 			projectDirPath = "";
@@ -494,6 +498,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B62AEBA5284CA31F00A20FB9 /* XCRemoteSwiftPackageReference "BudouX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/griffin-stewie/BudouX.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
 		B6FED631284507F80041805C /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/michael94ellis/SwiftUIJoystick";
@@ -505,6 +517,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B62AEBA6284CA31F00A20FB9 /* BudouX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B62AEBA5284CA31F00A20FB9 /* XCRemoteSwiftPackageReference "BudouX" */;
+			productName = BudouX;
+		};
 		B6FED632284507F80041805C /* SwiftUIJoystick */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B6FED631284507F80041805C /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */;
