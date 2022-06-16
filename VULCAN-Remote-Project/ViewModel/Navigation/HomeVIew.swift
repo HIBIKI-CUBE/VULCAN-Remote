@@ -17,6 +17,18 @@ enum driveMode: Int {
   case direct
 }
 
+
+func sigmoidRange(value: Double, center: Double, range: Double, strength: Double = 2.5) -> Double{
+  let e = 2.71828182845904523536028747135266249776
+  return (1/(1+pow(e, -strength * (value - center + range)))) * (1/(1+pow(e, strength * (value - center - range))))
+}
+
+
+func sigmoid(value: Double, center: Double, strength: Double = -100.0) -> Double{
+  let e = 2.71828182845904523536028747135266249776
+  return 1/(1+pow(e, -strength * (value - center)))
+}
+
 struct HomeView: View {
   @Environment(\.colorScheme) private var colorScheme: ColorScheme
   @Environment(\.scenePhase) private var scenePhase
@@ -36,8 +48,15 @@ struct HomeView: View {
   @State var rightPower = 0.0
   @State var leftPower = 0.0
   @State var errorNoticed = false
+  @State var response = ""
+  @State var readDistance = 0.0
+  @State var readAngle = 0.0
   let screen = UIScreen.main.bounds
   let vibrate = UINotificationFeedbackGenerator()
+  let bleDelay = 0.03
+  let readDelay = 0.2
+  let testAngle = 90.0
+  let testDistance = 1.0
   
   var body: some View {
     
@@ -94,48 +113,112 @@ struct HomeView: View {
             switch mode{
             case .remote:
               Joystick(monitor: joystickMonitor, width: screen.width * 0.9, shape: .circle, active: $active)
+                .onAppear(){
+                  
+                  Timer.scheduledTimer(withTimeInterval: bleDelay, repeats: true){ timer in
+                    
+                    if(!bleWaiting && active){
+                      distance = sqrt(pow(joystickMonitor.xyPoint.x, 2) + pow(joystickMonitor.xyPoint.y, 2)) / (screen.width * 0.9) / (fast ? 1 : 3)
+                      angle = joystickMonitor.xyPoint == .zero ? 0 : atan2(joystickMonitor.xyPoint.x, -joystickMonitor.xyPoint.y) * 180.0 / CGFloat.pi
+                      let data = """
+                        {"distance":\(Int(distance * 1000)),"angle":\(Int(angle)),"active":\(active ? "true" : "false")}
+                        """.data(using: .utf8)!
+                      bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withoutResponse)
+                      bleWaiting = true
+                      DispatchQueue.main.asyncAfter(deadline: .now() + bleDelay){
+                        bleWaiting = false
+                      }
+                    }
+                  }
+                  
+                }
                 .onChange(of: joystickMonitor.xyPoint){ _ in
                   if(!active && !errorNoticed){
                     vibrate.notificationOccurred(.error)
                     errorNoticed = true
                     return
                   }
-                  if(!bleWaiting && active){
-                    distance = sqrt(pow(joystickMonitor.xyPoint.x, 2) + pow(joystickMonitor.xyPoint.y, 2)) / (screen.width * 0.9) / (fast ? 1 : 3)
-                    angle = joystickMonitor.xyPoint == .zero ? 0 : atan2(joystickMonitor.xyPoint.x, -joystickMonitor.xyPoint.y) * 180.0 / CGFloat.pi
-                    let data = """
-                      {"distance":\(Int(distance * 1000)),"angle":\(Int(angle)),"active":true}
-                      """.data(using: .utf8)!
-                    bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
-                    bleWaiting = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
-                      bleWaiting = false
-                    }
-                  }
-                  if(joystickMonitor.xyPoint == .zero){
-                    let data = """
-                        {"distance":\(Int(0)),"angle":\(Int(0))}
-                        """.data(using: .utf8)!
-                    bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
-                      bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
-                    }
-                    errorNoticed = false
-                    print("stop")
-                  }
                 }
             case .ride:
-              Text("ライドモード".budouxed())
-                .font(.largeTitle)
+              Text("angle: \(readAngle), distance: \(readDistance)")
+                .onAppear(){
+                  Timer.scheduledTimer(withTimeInterval: readDelay, repeats: true){ timer in
+                    if(!bleWaiting && mode == .ride){
+                      bleManager.connectedPeripheral.peripheral.readValue(for: bleManager.connectedCharacteristic.characteristic)
+                      response = String(data: bleManager.connectedCharacteristic.characteristic.value ?? "error".data(using: .utf8)!, encoding: .utf8)!
+                      print(response)
+                      if(response.split(separator: ",").count > 1){
+                        readDistance = (Double(response.split(separator: ",")[0]) ?? 0.0) / 3150
+                        readAngle = Double(response.split(separator: ",")[1]) ?? 0.0
+                      }
+                      bleWaiting = true
+                      DispatchQueue.main.asyncAfter(deadline: .now() + bleDelay){
+                        bleWaiting = false
+                      }
+                    }
+                  }
+                }
+              ZStack{
+                ZStack{
+                  if(active){
+                    Image(systemName: "arrow.clockwise.circle.fill")
+                      .resizable()
+                      .symbolRenderingMode(.palette)
+                      .foregroundStyle(.white, .blue)
+                      .opacity(sigmoidRange(value: readAngle, center: 90, range: 30))
+                    Image(systemName: "arrow.counterclockwise.circle.fill")
+                      .resizable()
+                      .symbolRenderingMode(.palette)
+                      .foregroundStyle(.white, .blue)
+                      .opacity(sigmoidRange(value: readAngle, center: -90, range: 30))
+                    Image(systemName: "chevron.up.circle.fill")
+                      .resizable()
+                      .symbolRenderingMode(.palette)
+                      .foregroundStyle(.white, .blue)
+                      .opacity(sigmoidRange(value: readAngle, center: 0, range: 60) + sigmoidRange(value: abs(readAngle), center: 180, range: 60))
+                    Image(systemName: "stop.circle.fill")
+                      .resizable()
+                      .symbolRenderingMode(.palette)
+                      .foregroundStyle(.white, .blue)
+                      .opacity(sigmoid(value: readDistance, center: 0.3))
+                  }else{
+                    Image(systemName: "stop.circle.fill")
+                      .resizable()
+                      .symbolRenderingMode(.palette)
+                      .foregroundStyle(.white, .red)
+                  }
+                }
+                .saturation(readDistance)
+                .rotationEffect(Angle(degrees:
+                                        active && readDistance > 0.3
+                                      ?60 <= abs(readAngle) && abs(readAngle) <= 120
+                                      ?readAngle > 0
+                                      ?90
+                                      :-90
+                                      :readAngle
+                                      :0
+                                     ))
+                .animation(abs(readAngle) < 150 ? .easeOut(duration: 0.25) : .none, value: readAngle)
+                .scaledToFit()
+                .scaleEffect(0.25)
+                .offset(x: sin(readAngle / 180 * Double(CGFloat.pi)) * readDistance * 185, y: cos(readAngle / 180 * Double(CGFloat.pi)) * readDistance * -185)
+                .animation(.easeInOut(duration: readDelay), value: readDistance)
+                RadialGradient(gradient: Gradient(colors: [.blue.opacity(0),.blue.opacity(0.2),.blue.opacity(0.5)]), center: .center, startRadius: 0, endRadius: 200)
+                  .clipShape(Circle())
+              }
+              .padding()
+//                .background(
+//                  RadialGradient(gradient: Gradient(colors: )))
               
+//                ,center: .center,startRadius: 0, endRadius: self.dragDiameter / 2)
+//                .clipShape(Circle())
               Button("キャリブレーションを行う".budouxed(), action: {
                 let data = """
                       {"action":"calibrate"}
                       """.data(using: .utf8)!
-                bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
+                bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withoutResponse)
                 bleWaiting = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
+                DispatchQueue.main.asyncAfter(deadline: .now() + bleDelay){
                   bleWaiting = false
                 }
               })
@@ -170,41 +253,40 @@ struct HomeView: View {
             }
             Spacer()
             
-              Image(systemName: "power.circle.fill")
-              .scaleEffect(3, anchor: .center)
+            Image(systemName: "power.circle.fill")
+              .font(.largeTitle)
               .symbolRenderingMode(.palette)
               .foregroundStyle(.white, active ? .blue : .gray)
-                .onTapGesture {
-                  active.toggle()
-                    let data = """
+              .onTapGesture {
+                active.toggle()
+                let data = """
                           {"active":\(active ? "true" : "false")}
                           """.data(using: .utf8)!
-                    bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
-                    print(data)
-                    bleWaiting = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
-                      bleWaiting = false
-                    }
+                bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withoutResponse)
+                bleWaiting = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + bleDelay){
+                  bleWaiting = false
                 }
+              }
             HStack{
               if(mode == .remote){
-              Spacer()
-              HStack{
-                Image(systemName: "tortoise.fill")
-                  .symbolRenderingMode(!fast ? .palette : .monochrome)
-                  .foregroundStyle(!fast ? .yellow : .primary, .green)
-                Toggle("", isOn: $fast)
-                  .labelsHidden()
-                  .padding()
-                Image(systemName: "hare.fill")
-                  .symbolRenderingMode(.palette)
-                  .foregroundStyle(fast ? Color(red: 1, green: 0.7098, blue: 0.9412) : .primary)
+                Spacer()
+                HStack{
+                  Image(systemName: "tortoise.fill")
+                    .symbolRenderingMode(!fast ? .palette : .monochrome)
+                    .foregroundStyle(!fast ? .yellow : .primary, .green)
+                  Toggle("", isOn: $fast)
+                    .labelsHidden()
+                    .padding()
+                  Image(systemName: "hare.fill")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(fast ? Color(red: 1, green: 0.7098, blue: 0.9412) : .primary)
+                }
+                Spacer()
+                Divider()
+                  .blendMode(.difference)
+                  .frame(height: 50)
               }
-              Spacer()
-              Divider()
-                .blendMode(.difference)
-                .frame(height: 50)
-            }
               Spacer()
               HStack{
                 Image(systemName: "video.slash.fill")
@@ -231,10 +313,10 @@ struct HomeView: View {
               let data = """
                     {"mode":\(mode.rawValue),"active":"false"}
                     """.data(using: .utf8)!
-              bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
+              bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withoutResponse)
               print(mode.rawValue)
-              DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
-                bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withResponse)
+              DispatchQueue.main.asyncAfter(deadline: .now() + bleDelay){
+                bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withoutResponse)
               }
             }
             .padding()
@@ -286,7 +368,9 @@ struct HomeView_Previews: PreviewProvider {
       HomeView()
         .environmentObject(CoreBluetoothViewModel())
         .previewDevice("iPhone 11 Pro Max")
-        .preferredColorScheme(.dark)
+      HomeView()
+        .environmentObject(CoreBluetoothViewModel())
+        .previewDevice("iPhone 8 Plus")
     }
   }
 }

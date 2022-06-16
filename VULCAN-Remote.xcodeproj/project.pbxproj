@@ -26,6 +26,7 @@
 		715D910725C9229A00F19093 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D910625C9229A00F19093 /* DetailView.swift */; };
 		71A6E9A226D4115600B400BC /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A6E9A126D4115600B400BC /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift */; };
 		B62AEBA7284CA31F00A20FB9 /* BudouX in Frameworks */ = {isa = PBXBuildFile; productRef = B62AEBA6284CA31F00A20FB9 /* BudouX */; };
+		B62FA8312856DDB900F8749A /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62FA8302856DDB900F8749A /* SensorView.swift */; };
 		B69E7A3128405C140035189F /* ScanDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69E7A3028405C140035189F /* ScanDevice.swift */; };
 		B6CAF5C5283B1E02004C05A7 /* HomeVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CAF5C4283B1E02004C05A7 /* HomeVIew.swift */; };
 		B6FED630284507CB0041805C /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FED62F284507CB0041805C /* Joystick.swift */; };
@@ -53,6 +54,7 @@
 		715D910225C9229000F19093 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		715D910625C9229A00F19093 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		71A6E9A126D4115600B400BC /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreBluetoothViewModelExtension+SwiftUIView.swift.swift"; sourceTree = "<group>"; };
+		B62FA8302856DDB900F8749A /* SensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
 		B69E7A3028405C140035189F /* ScanDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanDevice.swift; sourceTree = "<group>"; };
 		B6CAF5C4283B1E02004C05A7 /* HomeVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVIew.swift; sourceTree = "<group>"; };
 		B6FED62F284507CB0041805C /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				715D910225C9229000F19093 /* ListView.swift */,
 				715D910625C9229A00F19093 /* DetailView.swift */,
 				B6FED62F284507CB0041805C /* Joystick.swift */,
+				B62FA8302856DDB900F8749A /* SensorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7134F38725C93B7D00DAD350 /* Mock.swift in Sources */,
+				B62FA8312856DDB900F8749A /* SensorView.swift in Sources */,
 				7134F38425C93B7D00DAD350 /* CBCentralManagerMock.swift in Sources */,
 				7134F38925C93B7D00DAD350 /* CBPeripheralProtcolDelegate.swift in Sources */,
 				7134F3A925CA3AC900DAD350 /* Service.swift in Sources */,

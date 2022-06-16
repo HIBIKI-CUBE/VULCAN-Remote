@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct CameraView: UIViewRepresentable {
-    func makeUIView(context: Context) -> UIView { BaseCameraView() }
+  func makeUIView(context: Context) -> UIView { BaseCameraView() }
     func updateUIView(_ uiView: UIViewType, context: Context) {}
 }
 
@@ -28,17 +28,16 @@ class BaseCameraView: UIView {
         )
             .devices.first(where: { $0.position == .back }),
               let input = try? AVCaptureDeviceInput(device: device) else { return }
-
+      
         let session = AVCaptureSession()
         session.addInput(input)
         session.startRunning()
-
-        layer.insertSublayer(AVCaptureVideoPreviewLayer(session: session), at: 0)
+      layer.insertSublayer(AVCaptureVideoPreviewLayer(session: session), at: 0)
     }()
 }
 
-struct CameraBackground_Previews: PreviewProvider {
+struct CameraView_Previews: PreviewProvider {
     static var previews: some View {
-        CameraBackground()
+        CameraView()
     }
 }
