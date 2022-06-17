@@ -54,7 +54,7 @@ struct HomeView: View {
   let screen = UIScreen.main.bounds
   let vibrate = UINotificationFeedbackGenerator()
   let bleDelay = 0.03
-  let readDelay = 0.2
+  let readDelay = 0.03
   let testAngle = 90.0
   let testDistance = 1.0
   
@@ -114,7 +114,6 @@ struct HomeView: View {
             case .remote:
               Joystick(monitor: joystickMonitor, width: screen.width * 0.9, shape: .circle, active: $active)
                 .onAppear(){
-                  
                   Timer.scheduledTimer(withTimeInterval: bleDelay, repeats: true){ timer in
                     
                     if(!bleWaiting && active){
@@ -140,24 +139,6 @@ struct HomeView: View {
                   }
                 }
             case .ride:
-              Text("angle: \(readAngle), distance: \(readDistance)")
-                .onAppear(){
-                  Timer.scheduledTimer(withTimeInterval: readDelay, repeats: true){ timer in
-                    if(!bleWaiting && mode == .ride){
-                      bleManager.connectedPeripheral.peripheral.readValue(for: bleManager.connectedCharacteristic.characteristic)
-                      response = String(data: bleManager.connectedCharacteristic.characteristic.value ?? "error".data(using: .utf8)!, encoding: .utf8)!
-                      print(response)
-                      if(response.split(separator: ",").count > 1){
-                        readDistance = (Double(response.split(separator: ",")[0]) ?? 0.0) / 3150
-                        readAngle = Double(response.split(separator: ",")[1]) ?? 0.0
-                      }
-                      bleWaiting = true
-                      DispatchQueue.main.asyncAfter(deadline: .now() + bleDelay){
-                        bleWaiting = false
-                      }
-                    }
-                  }
-                }
               ZStack{
                 ZStack{
                   if(active){
@@ -206,12 +187,16 @@ struct HomeView: View {
                 RadialGradient(gradient: Gradient(colors: [.blue.opacity(0),.blue.opacity(0.2),.blue.opacity(0.5)]), center: .center, startRadius: 0, endRadius: 200)
                   .clipShape(Circle())
               }
+              .onAppear(){
+                bleManager.connectedPeripheral.peripheral.setNotifyValue(true, for: bleManager.connectedCharacteristic.characteristic)
+              }
+              .onChange(of: bleManager.response){ _ in
+                if(bleManager.response.split(separator: ",").count > 1){
+                  readDistance = (Double(bleManager.response.split(separator: ",")[0]) ?? 0.0) / 3150
+                  readAngle = Double(bleManager.response.split(separator: ",")[1]) ?? 0.0
+                }
+              }
               .padding()
-//                .background(
-//                  RadialGradient(gradient: Gradient(colors: )))
-              
-//                ,center: .center,startRadius: 0, endRadius: self.dragDiameter / 2)
-//                .clipShape(Circle())
               Button("キャリブレーションを行う".budouxed(), action: {
                 let data = """
                       {"action":"calibrate"}

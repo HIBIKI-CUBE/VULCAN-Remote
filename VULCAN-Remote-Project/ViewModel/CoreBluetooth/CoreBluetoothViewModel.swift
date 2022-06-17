@@ -29,6 +29,8 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
     @Published var connectedService: Service!
     
     @Published var written = false
+  
+  @Published var response = ""
     
     private let serviceUUID: CBUUID = CBUUID()
     
@@ -173,20 +175,22 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
             foundCharacteristics.append(setCharacteristic)
             connectedCharacteristic = setCharacteristic
             
-//            guard setCharacteristic.uuid == targetCharacteristicUUID else { return }
-//            connectedCharacteristic = setCharacteristic
-//            if connectedCharacteristic.characteristic.isNotifying {
-//              print("キャラクタリスティックの通知が開始されている")
-//            } else {
-//              print("キャラクタリスティックの通知が止まっています。接続をキャンセルします。")
+            guard setCharacteristic.uuid == targetCharacteristicUUID else { return }
+            connectedCharacteristic = setCharacteristic
+            if connectedCharacteristic.characteristic.isNotifying {
+              print("キャラクタリスティックの通知が開始されている")
+            } else {
+              print("キャラクタリスティックの通知が止まっています。接続をキャンセルします。")
 //                centralManager.cancelPeripheralConnection(connectedPeripheral.peripheral)
-//            }
+            }
 //            connectedPeripheral.peripheral.readValue(for: connectedCharacteristic.characteristic)
         }
     }
     
     func didUpdateValue(_ peripheral: CBPeripheralProtocol, characteristic: CBCharacteristic, error: Error?) {
         guard let characteristicValue = characteristic.value else { return }
+      
+      response = String(data: characteristic.value ?? "error".data(using: .utf8)!, encoding: .utf8)!
         
         if let index = foundCharacteristics.firstIndex(where: { $0.uuid.uuidString == characteristic.uuid.uuidString }) {
             
