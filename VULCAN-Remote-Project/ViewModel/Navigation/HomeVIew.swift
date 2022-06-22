@@ -40,7 +40,7 @@ struct HomeView: View {
   @State var suggestReset = false
   @State var showScanDevice = false
   @State var bleWaiting = false
-  @State var mode = driveMode.remote
+  @State var mode = driveMode.ride
   @State var active = false
   @State var fast = false
   @State var distance = 0.0
@@ -83,7 +83,7 @@ struct HomeView: View {
       VStack{
         VStack{
           Spacer()
-          if(!bleManager.isConnected){
+          if(!bleManager.isConnected && false){
             Image("App-logo")
               .resizable()
               .aspectRatio(1, contentMode: .fit)
@@ -120,7 +120,7 @@ struct HomeView: View {
                       distance = sqrt(pow(joystickMonitor.xyPoint.x, 2) + pow(joystickMonitor.xyPoint.y, 2)) / (screen.width * 0.9) / (fast ? 1 : 3)
                       angle = joystickMonitor.xyPoint == .zero ? 0 : atan2(joystickMonitor.xyPoint.x, -joystickMonitor.xyPoint.y) * 180.0 / CGFloat.pi
                       let data = """
-                        {"distance":\(Int(distance * 1000)),"angle":\(Int(angle)),"active":\(active ? "true" : "false")}
+                        {"d":\(Int(distance * 1000)),"a":\(Int(angle))}
                         """.data(using: .utf8)!
                       bleManager.connectedPeripheral.peripheral.writeValue(data, for: bleManager.connectedCharacteristic.characteristic, type: .withoutResponse)
                       bleWaiting = true
@@ -187,9 +187,11 @@ struct HomeView: View {
                 RadialGradient(gradient: Gradient(colors: [.blue.opacity(0),.blue.opacity(0.2),.blue.opacity(0.5)]), center: .center, startRadius: 0, endRadius: 200)
                   .clipShape(Circle())
               }
-              .onAppear(){
-                bleManager.connectedPeripheral.peripheral.setNotifyValue(true, for: bleManager.connectedCharacteristic.characteristic)
-              }
+              .onReceive(bleManager.$connectedCharacteristic, perform: { _ in
+                if(bleManager.connectedCharacteristic != nil){
+                  bleManager.connectedPeripheral.peripheral.setNotifyValue(true, for: bleManager.connectedCharacteristic.characteristic)
+                }
+              })
               .onChange(of: bleManager.response){ _ in
                 if(bleManager.response.split(separator: ",").count > 1){
                   readDistance = (Double(bleManager.response.split(separator: ",")[0]) ?? 0.0) / 3150
@@ -237,7 +239,6 @@ struct HomeView: View {
               }
             }
             Spacer()
-            
             Image(systemName: "power.circle.fill")
               .font(.largeTitle)
               .symbolRenderingMode(.palette)
