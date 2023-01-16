@@ -28,6 +28,10 @@
 	<string>BluetoothでVULCANとの通信を行います</string>
 	<key>NSCameraUsageDescription</key>
 	<string>安全な使用のためカメラを使用します</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Face IDで認証を行います</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>画面録画を保存します</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -46,9 +50,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 </dict>

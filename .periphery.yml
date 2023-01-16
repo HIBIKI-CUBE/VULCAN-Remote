@@ -1,0 +1,5 @@
+schemes:
+- VULCAN-Remote-Project
+targets:
+- VULCAN-Remote-Project
+workspace: VULCAN-Remote.xcworkspace
