@@ -1,0 +1,795 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B65F07AF297678AF0083B849 /* connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F07AE297678AF0083B849 /* connectivity.swift */; };
+		B65F07B129767BAD0083B849 /* connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F07B029767BAD0083B849 /* connectivity.swift */; };
+		B6AF83AB29764A8300BE6F49 /* SwiftUIJoystick in Frameworks */ = {isa = PBXBuildFile; productRef = B6AF83AA29764A8300BE6F49 /* SwiftUIJoystick */; };
+		B6AF83AD29764A8400BE6F49 /* BudouX in Frameworks */ = {isa = PBXBuildFile; productRef = B6AF83AC29764A8400BE6F49 /* BudouX */; };
+		B6FE8DB6297643700067C23F /* vulcan_remote_universalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DB5297643700067C23F /* vulcan_remote_universalApp.swift */; };
+		B6FE8DB8297643700067C23F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DB7297643700067C23F /* HomeView.swift */; };
+		B6FE8DBA297643710067C23F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6FE8DB9297643710067C23F /* Assets.xcassets */; };
+		B6FE8DBD297643710067C23F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6FE8DBC297643710067C23F /* Preview Assets.xcassets */; };
+		B6FE8DC3297643710067C23F /* VULCAN Remote.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B6FE8DC2297643710067C23F /* VULCAN Remote.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B6FE8DC8297643710067C23F /* vulcan_remote_universalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DC7297643710067C23F /* vulcan_remote_universalApp.swift */; };
+		B6FE8DCA297643710067C23F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DC9297643710067C23F /* HomeView.swift */; };
+		B6FE8DCC297643720067C23F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6FE8DCB297643720067C23F /* Assets.xcassets */; };
+		B6FE8DCF297643720067C23F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6FE8DCE297643720067C23F /* Preview Assets.xcassets */; };
+		B6FE8DE7297644B20067C23F /* CBCentralManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DDD297644B20067C23F /* CBCentralManagerMock.swift */; };
+		B6FE8DE9297644B20067C23F /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DDE297644B20067C23F /* Mock.swift */; };
+		B6FE8DEB297644B20067C23F /* CBPeripheralMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DDF297644B20067C23F /* CBPeripheralMock.swift */; };
+		B6FE8DED297644B20067C23F /* ServiceCharacteristicsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DE0297644B20067C23F /* ServiceCharacteristicsMock.swift */; };
+		B6FE8DEF297644B20067C23F /* CBPeripheralProtcolDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DE2297644B20067C23F /* CBPeripheralProtcolDelegate.swift */; };
+		B6FE8DF1297644B20067C23F /* Peripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DE4297644B20067C23F /* Peripheral.swift */; };
+		B6FE8DF3297644B20067C23F /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DE5297644B20067C23F /* Service.swift */; };
+		B6FE8DF5297644B20067C23F /* Characteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DE6297644B20067C23F /* Characteristic.swift */; };
+		B6FE8E03297645000067C23F /* CoreBluetoothViewModelExtension+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DF9297645000067C23F /* CoreBluetoothViewModelExtension+Delegate.swift */; };
+		B6FE8E05297645000067C23F /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DFA297645000067C23F /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift */; };
+		B6FE8E07297645000067C23F /* CoreBluetoothViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8DFB297645000067C23F /* CoreBluetoothViewModel.swift */; };
+		B6FE8E1B297645B80067C23F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8E14297645B80067C23F /* DetailView.swift */; };
+		B6FE8E1D297645B80067C23F /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8E15297645B80067C23F /* SensorView.swift */; };
+		B6FE8E1F297645B80067C23F /* ScanDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8E16297645B80067C23F /* ScanDevice.swift */; };
+		B6FE8E21297645B80067C23F /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8E17297645B80067C23F /* ListView.swift */; };
+		B6FE8E23297645B80067C23F /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8E18297645B80067C23F /* CameraView.swift */; };
+		B6FE8E27297645B80067C23F /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8E1A297645B80067C23F /* Joystick.swift */; };
+		B6FE8E28297645B80067C23F /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE8E1A297645B80067C23F /* Joystick.swift */; };
+		B6FE8E2B297645E30067C23F /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = B6FE8E2A297645E30067C23F /* OrderedCollections */; };
+		B6FE8E2E297646100067C23F /* SwiftUIJoystick in Frameworks */ = {isa = PBXBuildFile; productRef = B6FE8E2D297646100067C23F /* SwiftUIJoystick */; };
+		B6FE8E31297646320067C23F /* BudouX in Frameworks */ = {isa = PBXBuildFile; productRef = B6FE8E30297646320067C23F /* BudouX */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B6FE8DC4297643710067C23F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B6FE8DAA297643700067C23F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B6FE8DC1297643710067C23F;
+			remoteInfo = "vulcan-remote-universal Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B64906302978E2770069AA4E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6FE8DD5297643720067C23F /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				B6FE8DC3297643710067C23F /* VULCAN Remote.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B64906202978E2760069AA4E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		B64906222978E2760069AA4E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		B65F07AE297678AF0083B849 /* connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = connectivity.swift; sourceTree = "<group>"; };
+		B65F07B029767BAD0083B849 /* connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = connectivity.swift; sourceTree = "<group>"; };
+		B6FE8DB2297643700067C23F /* vulcan-remote-universal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "vulcan-remote-universal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6FE8DB5297643700067C23F /* vulcan_remote_universalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vulcan_remote_universalApp.swift; sourceTree = "<group>"; };
+		B6FE8DB7297643700067C23F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B6FE8DB9297643710067C23F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B6FE8DBC297643710067C23F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B6FE8DC2297643710067C23F /* VULCAN Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VULCAN Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6FE8DC7297643710067C23F /* vulcan_remote_universalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vulcan_remote_universalApp.swift; sourceTree = "<group>"; };
+		B6FE8DC9297643710067C23F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B6FE8DCB297643720067C23F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B6FE8DCE297643720067C23F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B6FE8DDD297644B20067C23F /* CBCentralManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBCentralManagerMock.swift; sourceTree = "<group>"; };
+		B6FE8DDE297644B20067C23F /* Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
+		B6FE8DDF297644B20067C23F /* CBPeripheralMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBPeripheralMock.swift; sourceTree = "<group>"; };
+		B6FE8DE0297644B20067C23F /* ServiceCharacteristicsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceCharacteristicsMock.swift; sourceTree = "<group>"; };
+		B6FE8DE2297644B20067C23F /* CBPeripheralProtcolDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBPeripheralProtcolDelegate.swift; sourceTree = "<group>"; };
+		B6FE8DE4297644B20067C23F /* Peripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Peripheral.swift; sourceTree = "<group>"; };
+		B6FE8DE5297644B20067C23F /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		B6FE8DE6297644B20067C23F /* Characteristic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Characteristic.swift; sourceTree = "<group>"; };
+		B6FE8DF9297645000067C23F /* CoreBluetoothViewModelExtension+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreBluetoothViewModelExtension+Delegate.swift"; sourceTree = "<group>"; };
+		B6FE8DFA297645000067C23F /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreBluetoothViewModelExtension+SwiftUIView.swift.swift"; sourceTree = "<group>"; };
+		B6FE8DFB297645000067C23F /* CoreBluetoothViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreBluetoothViewModel.swift; sourceTree = "<group>"; };
+		B6FE8E14297645B80067C23F /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		B6FE8E15297645B80067C23F /* SensorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
+		B6FE8E16297645B80067C23F /* ScanDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanDevice.swift; sourceTree = "<group>"; };
+		B6FE8E17297645B80067C23F /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		B6FE8E18297645B80067C23F /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		B6FE8E1A297645B80067C23F /* Joystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B6FE8DAF297643700067C23F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6FE8E31297646320067C23F /* BudouX in Frameworks */,
+				B6FE8E2E297646100067C23F /* SwiftUIJoystick in Frameworks */,
+				B6FE8E2B297645E30067C23F /* OrderedCollections in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6FE8DBF297643710067C23F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6AF83AB29764A8300BE6F49 /* SwiftUIJoystick in Frameworks */,
+				B6AF83AD29764A8400BE6F49 /* BudouX in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B6AF83A929764A8300BE6F49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B64906202978E2760069AA4E /* WidgetKit.framework */,
+				B64906222978E2760069AA4E /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B6FE8DA9297643700067C23F = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DD92976443E0067C23F /* Shared */,
+				B6FE8DB4297643700067C23F /* vulcan-remote-universal */,
+				B6FE8DC6297643710067C23F /* vulcan-remote-universal Watch App */,
+				B6FE8DB3297643700067C23F /* Products */,
+				B6AF83A929764A8300BE6F49 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B6FE8DB3297643700067C23F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DB2297643700067C23F /* vulcan-remote-universal.app */,
+				B6FE8DC2297643710067C23F /* VULCAN Remote.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B6FE8DB4297643700067C23F /* vulcan-remote-universal */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DB5297643700067C23F /* vulcan_remote_universalApp.swift */,
+				B6FE8DB7297643700067C23F /* HomeView.swift */,
+				B6FE8DB9297643710067C23F /* Assets.xcassets */,
+				B6FE8DBB297643710067C23F /* Preview Content */,
+				B65F07B029767BAD0083B849 /* connectivity.swift */,
+			);
+			path = "vulcan-remote-universal";
+			sourceTree = "<group>";
+		};
+		B6FE8DBB297643710067C23F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DBC297643710067C23F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B6FE8DC6297643710067C23F /* vulcan-remote-universal Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DC7297643710067C23F /* vulcan_remote_universalApp.swift */,
+				B6FE8DC9297643710067C23F /* HomeView.swift */,
+				B6FE8DCB297643720067C23F /* Assets.xcassets */,
+				B6FE8DCD297643720067C23F /* Preview Content */,
+				B65F07AE297678AF0083B849 /* connectivity.swift */,
+			);
+			path = "vulcan-remote-universal Watch App";
+			sourceTree = "<group>";
+		};
+		B6FE8DCD297643720067C23F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DCE297643720067C23F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B6FE8DD92976443E0067C23F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8E13297645B80067C23F /* View */,
+				B6FE8DF7297645000067C23F /* ViewModel */,
+				B6FE8DDA297644B20067C23F /* Model */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B6FE8DDA297644B20067C23F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DDB297644B20067C23F /* CoreBluetooth */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B6FE8DDB297644B20067C23F /* CoreBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DDC297644B20067C23F /* Mock */,
+				B6FE8DE1297644B20067C23F /* Delegate */,
+				B6FE8DE3297644B20067C23F /* Store */,
+			);
+			path = CoreBluetooth;
+			sourceTree = "<group>";
+		};
+		B6FE8DDC297644B20067C23F /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DDD297644B20067C23F /* CBCentralManagerMock.swift */,
+				B6FE8DDE297644B20067C23F /* Mock.swift */,
+				B6FE8DDF297644B20067C23F /* CBPeripheralMock.swift */,
+				B6FE8DE0297644B20067C23F /* ServiceCharacteristicsMock.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		B6FE8DE1297644B20067C23F /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DE2297644B20067C23F /* CBPeripheralProtcolDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		B6FE8DE3297644B20067C23F /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DE4297644B20067C23F /* Peripheral.swift */,
+				B6FE8DE5297644B20067C23F /* Service.swift */,
+				B6FE8DE6297644B20067C23F /* Characteristic.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		B6FE8DF7297645000067C23F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DF8297645000067C23F /* CoreBluetooth */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B6FE8DF8297645000067C23F /* CoreBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8DF9297645000067C23F /* CoreBluetoothViewModelExtension+Delegate.swift */,
+				B6FE8DFA297645000067C23F /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift */,
+				B6FE8DFB297645000067C23F /* CoreBluetoothViewModel.swift */,
+			);
+			path = CoreBluetooth;
+			sourceTree = "<group>";
+		};
+		B6FE8E13297645B80067C23F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B6FE8E14297645B80067C23F /* DetailView.swift */,
+				B6FE8E15297645B80067C23F /* SensorView.swift */,
+				B6FE8E16297645B80067C23F /* ScanDevice.swift */,
+				B6FE8E17297645B80067C23F /* ListView.swift */,
+				B6FE8E18297645B80067C23F /* CameraView.swift */,
+				B6FE8E1A297645B80067C23F /* Joystick.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B6FE8DB1297643700067C23F /* vulcan-remote-universal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6FE8DD6297643720067C23F /* Build configuration list for PBXNativeTarget "vulcan-remote-universal" */;
+			buildPhases = (
+				B6FE8DAE297643700067C23F /* Sources */,
+				B6FE8DAF297643700067C23F /* Frameworks */,
+				B6FE8DB0297643700067C23F /* Resources */,
+				B6FE8DD5297643720067C23F /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B6FE8DC5297643710067C23F /* PBXTargetDependency */,
+			);
+			name = "vulcan-remote-universal";
+			packageProductDependencies = (
+				B6FE8E2A297645E30067C23F /* OrderedCollections */,
+				B6FE8E2D297646100067C23F /* SwiftUIJoystick */,
+				B6FE8E30297646320067C23F /* BudouX */,
+			);
+			productName = "vulcan-remote-universal";
+			productReference = B6FE8DB2297643700067C23F /* vulcan-remote-universal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B6FE8DC1297643710067C23F /* vulcan-remote-universal Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6FE8DD2297643720067C23F /* Build configuration list for PBXNativeTarget "vulcan-remote-universal Watch App" */;
+			buildPhases = (
+				B6FE8DBE297643710067C23F /* Sources */,
+				B6FE8DBF297643710067C23F /* Frameworks */,
+				B6FE8DC0297643710067C23F /* Resources */,
+				B64906302978E2770069AA4E /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "vulcan-remote-universal Watch App";
+			packageProductDependencies = (
+				B6AF83AA29764A8300BE6F49 /* SwiftUIJoystick */,
+				B6AF83AC29764A8400BE6F49 /* BudouX */,
+			);
+			productName = "vulcan-remote-universal Watch App";
+			productReference = B6FE8DC2297643710067C23F /* VULCAN Remote.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B6FE8DAA297643700067C23F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					B6FE8DB1297643700067C23F = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					B6FE8DC1297643710067C23F = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
+			};
+			buildConfigurationList = B6FE8DAD297643700067C23F /* Build configuration list for PBXProject "vulcan-remote-universal" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B6FE8DA9297643700067C23F;
+			packageReferences = (
+				B6FE8E29297645E30067C23F /* XCRemoteSwiftPackageReference "swift-collections" */,
+				B6FE8E2C297646100067C23F /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */,
+				B6FE8E2F297646320067C23F /* XCRemoteSwiftPackageReference "BudouX" */,
+			);
+			productRefGroup = B6FE8DB3297643700067C23F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B6FE8DB1297643700067C23F /* vulcan-remote-universal */,
+				B6FE8DC1297643710067C23F /* vulcan-remote-universal Watch App */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B6FE8DB0297643700067C23F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6FE8DBD297643710067C23F /* Preview Assets.xcassets in Resources */,
+				B6FE8DBA297643710067C23F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6FE8DC0297643710067C23F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6FE8DCF297643720067C23F /* Preview Assets.xcassets in Resources */,
+				B6FE8DCC297643720067C23F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B6FE8DAE297643700067C23F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6FE8E1F297645B80067C23F /* ScanDevice.swift in Sources */,
+				B6FE8DED297644B20067C23F /* ServiceCharacteristicsMock.swift in Sources */,
+				B6FE8DB8297643700067C23F /* HomeView.swift in Sources */,
+				B6FE8E23297645B80067C23F /* CameraView.swift in Sources */,
+				B6FE8E21297645B80067C23F /* ListView.swift in Sources */,
+				B6FE8E05297645000067C23F /* CoreBluetoothViewModelExtension+SwiftUIView.swift.swift in Sources */,
+				B6FE8E1B297645B80067C23F /* DetailView.swift in Sources */,
+				B6FE8DF5297644B20067C23F /* Characteristic.swift in Sources */,
+				B6FE8E1D297645B80067C23F /* SensorView.swift in Sources */,
+				B6FE8DE7297644B20067C23F /* CBCentralManagerMock.swift in Sources */,
+				B6FE8DB6297643700067C23F /* vulcan_remote_universalApp.swift in Sources */,
+				B6FE8E03297645000067C23F /* CoreBluetoothViewModelExtension+Delegate.swift in Sources */,
+				B65F07B129767BAD0083B849 /* connectivity.swift in Sources */,
+				B6FE8DEF297644B20067C23F /* CBPeripheralProtcolDelegate.swift in Sources */,
+				B6FE8E07297645000067C23F /* CoreBluetoothViewModel.swift in Sources */,
+				B6FE8DF3297644B20067C23F /* Service.swift in Sources */,
+				B6FE8DEB297644B20067C23F /* CBPeripheralMock.swift in Sources */,
+				B6FE8E27297645B80067C23F /* Joystick.swift in Sources */,
+				B6FE8DE9297644B20067C23F /* Mock.swift in Sources */,
+				B6FE8DF1297644B20067C23F /* Peripheral.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6FE8DBE297643710067C23F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6FE8DCA297643710067C23F /* HomeView.swift in Sources */,
+				B65F07AF297678AF0083B849 /* connectivity.swift in Sources */,
+				B6FE8DC8297643710067C23F /* vulcan_remote_universalApp.swift in Sources */,
+				B6FE8E28297645B80067C23F /* Joystick.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B6FE8DC5297643710067C23F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B6FE8DC1297643710067C23F /* vulcan-remote-universal Watch App */;
+			targetProxy = B6FE8DC4297643710067C23F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B6FE8DD0297643720067C23F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B6FE8DD1297643720067C23F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		B6FE8DD3297643720067C23F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"vulcan-remote-universal Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = NPSM864R9U;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "ga.hibiki-cube.vulcan-remote-universal";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ga.hibiki-cube.vulcan-remote-universal.watchkitapp";
+				PRODUCT_NAME = "VULCAN Remote";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Debug;
+		};
+		B6FE8DD4297643720067C23F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"vulcan-remote-universal Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = NPSM864R9U;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "ga.hibiki-cube.vulcan-remote-universal";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ga.hibiki-cube.vulcan-remote-universal.watchkitapp";
+				PRODUCT_NAME = "VULCAN Remote";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Release;
+		};
+		B6FE8DD7297643720067C23F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"vulcan-remote-universal/Preview Content\"";
+				DEVELOPMENT_TEAM = NPSM864R9U;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "VULCAN Remote";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "BluetoothでVULCANとの通信を行います";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "BluetoothでVULCANとの通信を行います";
+				INFOPLIST_KEY_NSCameraUsageDescription = "安全な使用のためカメラを使用します";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "画面録画を保存します";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ga.hibiki-cube.vulcan-remote-universal";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B6FE8DD8297643720067C23F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"vulcan-remote-universal/Preview Content\"";
+				DEVELOPMENT_TEAM = NPSM864R9U;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "VULCAN Remote";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "BluetoothでVULCANとの通信を行います";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "BluetoothでVULCANとの通信を行います";
+				INFOPLIST_KEY_NSCameraUsageDescription = "安全な使用のためカメラを使用します";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "画面録画を保存します";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ga.hibiki-cube.vulcan-remote-universal";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B6FE8DAD297643700067C23F /* Build configuration list for PBXProject "vulcan-remote-universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6FE8DD0297643720067C23F /* Debug */,
+				B6FE8DD1297643720067C23F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6FE8DD2297643720067C23F /* Build configuration list for PBXNativeTarget "vulcan-remote-universal Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6FE8DD3297643720067C23F /* Debug */,
+				B6FE8DD4297643720067C23F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6FE8DD6297643720067C23F /* Build configuration list for PBXNativeTarget "vulcan-remote-universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6FE8DD7297643720067C23F /* Debug */,
+				B6FE8DD8297643720067C23F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B6FE8E29297645E30067C23F /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		B6FE8E2C297646100067C23F /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/michael94ellis/SwiftUIJoystick";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		B6FE8E2F297646320067C23F /* XCRemoteSwiftPackageReference "BudouX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/griffin-stewie/BudouX.swift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B6AF83AA29764A8300BE6F49 /* SwiftUIJoystick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6FE8E2C297646100067C23F /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */;
+			productName = SwiftUIJoystick;
+		};
+		B6AF83AC29764A8400BE6F49 /* BudouX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6FE8E2F297646320067C23F /* XCRemoteSwiftPackageReference "BudouX" */;
+			productName = BudouX;
+		};
+		B6FE8E2A297645E30067C23F /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6FE8E29297645E30067C23F /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		B6FE8E2D297646100067C23F /* SwiftUIJoystick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6FE8E2C297646100067C23F /* XCRemoteSwiftPackageReference "SwiftUIJoystick" */;
+			productName = SwiftUIJoystick;
+		};
+		B6FE8E30297646320067C23F /* BudouX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6FE8E2F297646320067C23F /* XCRemoteSwiftPackageReference "BudouX" */;
+			productName = BudouX;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = B6FE8DAA297643700067C23F /* Project object */;
+}
