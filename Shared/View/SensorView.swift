@@ -39,8 +39,8 @@ public struct SensorView: View {
   
   func countdown(_ seconds: Int, closure: @escaping () -> Void){
     if(!counting){
-      counting = true
       countdownSeconds = seconds
+      counting = true
       Timer.scheduledTimer(withTimeInterval: 1, repeats: true){timer in
         countdownSeconds -= 1
         if(countdownSeconds <= 0 || !counting){

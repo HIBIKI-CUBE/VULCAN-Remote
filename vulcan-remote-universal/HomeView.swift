@@ -418,8 +418,8 @@ struct HomeView: View {
           .buttonStyle(.bordered)
           Button("重心補正".budouxed(), action: {
             if(bleManager.isConnected && mode == .ride && !calibrating){
+              sendFlags(calibrate: true)
               sensor.countdown(3){
-                sendFlags(calibrate: true)
                 showMessage(message: "重心補正が完了しました")
                 calibrated = true
               }
