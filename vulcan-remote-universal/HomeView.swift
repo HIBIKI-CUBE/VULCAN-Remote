@@ -161,6 +161,11 @@ struct HomeView: View {
                       }
                     }
                   }
+                  Timer.scheduledTimer(withTimeInterval: 2, repeats: true){ timer in
+                    if connection.session.activationState == .notActivated {
+                      connection.session.activate()
+                    }
+                  }
                 }
                 .onReceive(connection.$active){ active in
                   self.active = active
