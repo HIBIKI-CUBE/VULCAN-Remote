@@ -10,7 +10,6 @@ import WatchConnectivity
 class connectivity: NSObject, ObservableObject, WCSessionDelegate {
   
   public let session: WCSession
-  public var isConnected = false
   public var waiting = false
   
   @Published var active: Bool = false
@@ -30,10 +29,8 @@ class connectivity: NSObject, ObservableObject, WCSessionDelegate {
   func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     if let error = error {
       print(error.localizedDescription)
-      isConnected = false
     } else {
       print("The session has completed activation.")
-      isConnected = true
     }
   }
   

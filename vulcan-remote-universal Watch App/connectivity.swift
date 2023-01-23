@@ -11,7 +11,6 @@ import SwiftUI
 class connectivity: NSObject, WCSessionDelegate {
   
   public let session: WCSession
-  public var isConnected = false
   public var waiting = false
   
   @Published var active: Bool = false
@@ -19,7 +18,7 @@ class connectivity: NSObject, WCSessionDelegate {
   @Published var lidarFront: Bool = true
   @Published var lidarSide: Bool = true
   
-  init(session: WCSession  = .default) {
+  init(session: WCSession = .default) {
     self.session = session
     super.init()
     self.session.delegate = self
@@ -29,10 +28,8 @@ class connectivity: NSObject, WCSessionDelegate {
   func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     if let error = error {
       print(error.localizedDescription)
-      isConnected = false
     } else {
       print("The session has completed activation.")
-      isConnected = true
     }
   }
   

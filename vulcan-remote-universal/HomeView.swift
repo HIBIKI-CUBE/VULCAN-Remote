@@ -49,6 +49,8 @@ struct HomeView: View {
   @State var lidarFrontOpaque = true
   @State var lidarSide = true
   @State var lidarSideOpaque = true
+  @State var raderAnimation = 1.0
+  let raderTimer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
   @State var fast = false
   @State var distance = 0.0
   @State var angle = 0.0
@@ -216,7 +218,8 @@ struct HomeView: View {
               HStack{
                 Spacer()
                 Toggle(isOn: $lidarFront){
-                  Image(systemName: "car.top.radiowaves.front.fill")
+                  Image(systemName: "car.top.radiowaves.front.fill", variableValue: raderAnimation)
+                    .animation(.default, value: raderAnimation)
                     .font(.largeTitle)
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(active && lidarFront ? .blue : active ?  .yellow : .gray, lidarFront ? .white : .red)
@@ -234,11 +237,20 @@ struct HomeView: View {
                   sendFlags()
                   connection.sendState(state: "lidarFront", value: lidarFront)
                   if(!lidarFront){
+                    raderAnimation = 1
                     withAnimation(Animation.easeIn(duration: 0.75).repeatForever(autoreverses: false)){
                       lidarFrontOpaque = false
                     }
                   }else{
                     lidarFrontOpaque = true
+                  }
+                }
+                .onReceive(raderTimer){_ in
+                  if(lidarFront){
+                    raderAnimation += 0.5
+                    if(raderAnimation > 1){
+                      raderAnimation = 0
+                    }
                   }
                 }
                 Spacer()
@@ -316,7 +328,7 @@ struct HomeView: View {
                     .padding()
                     .onChange(of: fast){ _ in
                       sendFlags()
-                      connection.sendState(state: "fats", value: fast)
+                      connection.sendState(state: "fast", value: fast)
                     }
                   Image(systemName: "hare.fill")
                     .symbolRenderingMode(.palette)
@@ -403,10 +415,18 @@ struct HomeView: View {
             if(bleManager.isConnected && mode == .ride && !calibrating){
               sensor.countdown(3){
                 sendFlags(calibrate: true)
+                showMessage(message: "重心補正が完了しました")
                 calibrated = true
               }
             }else{
               vibrate.notificationOccurred(.error)
+              if(!bleManager.isConnected){
+                showMessage(message: "VULCANに接続していません")
+              }else if(mode != .ride){
+                showMessage(message: "ライドモードに切り替えてください")
+              }else if(calibrating){
+                showMessage(message: "補正中です")
+              }
             }
           })
           .padding()
