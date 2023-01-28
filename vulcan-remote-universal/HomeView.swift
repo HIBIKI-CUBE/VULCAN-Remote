@@ -290,6 +290,7 @@ struct HomeView: View {
                 .onChange(of: active) { _ in
                   sendFlags()
                   connection.sendState(state: "active", value: active)
+                  UIApplication.shared.isIdleTimerDisabled = (mode == .ride && active)
                 }
                 Spacer()
                 Toggle(isOn: $lidarSide){
